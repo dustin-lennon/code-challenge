@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -23,8 +22,6 @@ class CreateUsersTable extends Migration
             $table->datetime('last_sign_in')->nullable();
             $table->timestamps();
         });
-
-        $this->seed();
     }
 
     /**
@@ -35,19 +32,5 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-    }
-
-    public function seed() {
-        $this->users();
-    }
-
-    protected function users() {
-        DB::table('users')->insert(
-            array(
-                'name' => 'Administrator',
-                'email' => 'test@test.com',
-                'password' => bcrypt('secret')
-            )
-        );
     }
 }

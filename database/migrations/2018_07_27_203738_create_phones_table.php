@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLeadsTable extends Migration
+class CreatePhonesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateLeadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('leads', function (Blueprint $table) {
-            $table->increments('lead_id')->unsigned();
-            $table->string('name');
-            $table->string('email');
-            $table->string('postal_code');
+        Schema::create('phones', function (Blueprint $table) {
+            $table->increments('phone_id')->unsigned();
+            $table->integer('lead_id')->unsigned();
+            $table->foreign('lead_id')->references('lead_id')->on('leads')->onDelete('cascade');
+            $table->string('phone_number');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateLeadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leads');
+        Schema::dropIfExists('phones');
     }
 }
